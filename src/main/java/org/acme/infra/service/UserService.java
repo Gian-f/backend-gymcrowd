@@ -25,9 +25,7 @@ public class UserService {
 
     public List<CreateUserResponse> listAll() {
         List<User> users = repository.findAllByStatus();
-        return users.stream()
-                .map(mapper::toCreateDto)
-                .collect(Collectors.toList());
+        return users.stream().map(mapper::toCreateDto).collect(Collectors.toList());
     }
 
     public CreateUserResponse findById(Long id) {

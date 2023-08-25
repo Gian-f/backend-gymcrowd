@@ -10,8 +10,8 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "jakarta")
 public interface UserMapper {
-    User toEntity(CreateUserRequest dto);
 
+    User toEntity(CreateUserRequest dto);
 
     CreateUserResponse toCreateDto(User entity);
 

@@ -22,10 +22,13 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String username;
+
     @Column(unique = true, nullable = false)
     String email;
+
     @Column(unique = true, name = "cpf")
     String cpf;
+
     String password;
 
     boolean status;

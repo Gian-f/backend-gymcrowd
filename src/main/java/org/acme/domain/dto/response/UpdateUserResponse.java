@@ -14,8 +14,7 @@ public class UpdateUserResponse {
     Long id;
     String username;
     String email;
-    String cpf;
-    String password;
+    boolean status;
     Date createdAt;
     Date modifiedAt;
 }
