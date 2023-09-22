@@ -1,3 +1,3 @@
 package org.acme.domain.exception
 
-class EmailAlreadyExistsException : RuntimeException("Email já está em uso")
+class EmailAlreadyExistsException : RuntimeException("Email ja está em uso")

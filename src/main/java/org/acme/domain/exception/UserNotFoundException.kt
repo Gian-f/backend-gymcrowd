@@ -1,3 +1,3 @@
 package org.acme.domain.exception
 
-class UserNotFoundException: RuntimeException("Usuário não encontrado")
+class UserNotFoundException: RuntimeException("Usuario nao encontrado")

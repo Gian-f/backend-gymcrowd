@@ -1,17 +1,16 @@
-package org.acme.domain.dto.response;
+package org.acme.domain.dto.response
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonRootName
 import io.quarkus.runtime.annotations.RegisterForReflection
 import org.acme.domain.model.User
-import java.util.*
 
-@JsonRootName("users")
+@JsonRootName("auth")
 @RegisterForReflection
-data class UserResponse(
+data class AuthResponse(
 
-    @JsonProperty("result")
-    val user: User,
+    @JsonProperty("token")
+    val token: String,
 
     @JsonProperty("message")
     val message: String,
@@ -21,10 +20,10 @@ data class UserResponse(
 ) {
     companion object {
         @JvmStatic
-        fun build(user: User, message: String, status: Boolean): UserResponse = UserResponse(
-            user = user,
+        fun build(token: String, message: String, status: Boolean): AuthResponse = AuthResponse(
+            token = token,
             message = message,
-            status = status
+            status = status,
         )
     }
 }

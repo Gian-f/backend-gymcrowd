@@ -1,3 +1,3 @@
 package org.acme.domain.exception
 
-class UsernameAlreadyExistsException: RuntimeException("Usuário já existe!")
+class UsernameAlreadyExistsException: RuntimeException("Usuario já existe!")

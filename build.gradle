@@ -30,17 +30,13 @@ dependencies {
     implementation 'io.quarkus:quarkus-resteasy-jackson'
     implementation 'io.quarkus:quarkus-arc'
     implementation 'io.quarkus:quarkus-flyway'
-//    implementation 'org.mapstruct:mapstruct:1.5.3.Final'
-//    implementation 'org.projectlombok:lombok:1.18.28'
     implementation 'at.favre.lib:bcrypt:0.9.0'
     implementation("org.jboss.logmanager:log4j2-jboss-logmanager")
     implementation("io.quarkus:quarkus-logging-json")
-//    annotationProcessor 'org.projectlombok:lombok:1.18.28'
-//    annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.3.Final'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
     testImplementation 'nl.jqno.equalsverifier:equalsverifier:3.5'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 }
 
 group 'com.br'

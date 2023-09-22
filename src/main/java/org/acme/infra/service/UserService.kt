@@ -9,21 +9,24 @@ import org.acme.domain.exception.UserNotFoundException
 import org.acme.domain.exception.UsernameAlreadyExistsException
 import org.acme.infra.repository.UserRepository
 import org.acme.infra.security.BCryptHashProvider
+import org.acme.utils.ResponseMessages.GENERIC_MESSAGE
+import org.acme.utils.ResponseMessages.USER_CREATED
+import org.acme.utils.ResponseMessages.USER_UPDATED
 
 @ApplicationScoped
 class UserService(
-        private val repository: UserRepository,
-        private val hashProvider: BCryptHashProvider
+    private val repository: UserRepository,
+    private val hashProvider: BCryptHashProvider
 ) {
     fun findById(id: Long): UserResponse {
         val user = repository.findById(id) ?: throw UserNotFoundException()
-        return UserResponse.build(user)
+        return UserResponse.build(user, GENERIC_MESSAGE, true)
     }
 
     fun findAll(): List<UserResponse> {
         val users = repository.findAllByStatus()
         return users.map { list ->
-                UserResponse.build(list)
+            UserResponse.build(list, GENERIC_MESSAGE, true)
         }
     }
 
@@ -34,7 +37,7 @@ class UserService(
         val user = newUser.toEntity().apply { password = hashedPassword }
 
         repository.persist(user)
-        return UserResponse.build(user)
+        return UserResponse.build(user, USER_CREATED, true)
     }
 
     fun update(loggedInUserId: Long, updateRequest: UpdateUserRequest): UserResponse {
@@ -49,7 +52,7 @@ class UserService(
         updateRequest.applyChangesTo(user)
         repository.persist(user)
 
-        return UserResponse.build(user)
+        return UserResponse.build(user, USER_UPDATED, true)
     }
 
     private fun validateUsernameAndEmail(username: String?, email: String?) {

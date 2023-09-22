@@ -11,4 +11,7 @@ data class UserLoginRequest(
 
         @JsonProperty("password")
         val password: String,
+
+        @JsonProperty("remember_me")
+        val rememberMe: Boolean
 )

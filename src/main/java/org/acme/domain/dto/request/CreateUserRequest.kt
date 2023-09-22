@@ -39,6 +39,16 @@ data class CreateUserRequest(
         @NotNull
         @JsonProperty("password")
         val password: String? = null,
+
+        @NotBlank(message = "Informe a senha")
+        @Size(min = 8, max = 15)
+        @NotNull
+        @JsonProperty("confirmPassword")
+        val confirmPassword: String? = null,
+
+        @BooleanFlag
+        @JsonProperty("termsConditions")
+        val termsConditions: Boolean? = false
 ) {
     fun toEntity() = User(
             username = username.orEmpty(),
