@@ -3,13 +3,12 @@ package org.acme.domain.dto.response
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonRootName
 import io.quarkus.runtime.annotations.RegisterForReflection
-import org.acme.domain.model.User
 
 @JsonRootName("auth")
 @RegisterForReflection
 data class AuthResponse(
 
-    @JsonProperty("token")
+    @JsonProperty("access_token")
     val token: String,
 
     @JsonProperty("message")

@@ -27,4 +27,8 @@ class UserRepository : PanacheRepository<User> {
     fun existsEmail(email: String?): Boolean {
         return count("email = ?1", email) > 0
     }
+
+    fun existsCpf(cpf: String?): Boolean {
+        return count("cpf = ?1", cpf) > 0
+    }
 }

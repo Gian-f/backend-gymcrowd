@@ -13,10 +13,9 @@ class JwtTokenProvider(
     @ConfigProperty(name = "mp.jwt.expiration.time.minutes")
     private val expirationTimeInMinutes: Long,
 ) {
-    fun create(username: String, email: String): String = Jwt.claims()
+    fun create(login: String): String = Jwt.claims()
         .issuer(issuer)
-        .subject(username)
-        .subject(email)
+        .subject(login)
         .issuedAt(now())
         .expiresAt(now().plus(expirationTimeInMinutes, MINUTES))
         .sign()

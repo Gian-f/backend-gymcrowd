@@ -4,14 +4,13 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonRootName
 import io.quarkus.runtime.annotations.RegisterForReflection
 import org.acme.domain.model.User
-import java.util.*
 
 @JsonRootName("users")
 @RegisterForReflection
 data class UserResponse(
 
     @JsonProperty("result")
-    val user: User,
+    val user: User?,
 
     @JsonProperty("message")
     val message: String,

@@ -4,9 +4,10 @@ import jakarta.ws.rs.WebApplicationException
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import org.acme.domain.dto.response.ErrorResponse
-class EmailAlreadyExistsException : WebApplicationException(
-    Response.status(Response.Status.BAD_REQUEST)
-        .entity(ErrorResponse("Email ja está em uso"))
+
+class EmptyPasswordException : WebApplicationException(
+    Response.status(Response.Status.NOT_ACCEPTABLE)
+        .entity(ErrorResponse("Senha não pode ser vazia"))
         .type(MediaType.APPLICATION_JSON)
         .build()
 )

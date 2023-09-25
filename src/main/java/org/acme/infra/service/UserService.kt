@@ -4,14 +4,14 @@ import jakarta.enterprise.context.ApplicationScoped
 import org.acme.domain.dto.request.CreateUserRequest
 import org.acme.domain.dto.request.UpdateUserRequest
 import org.acme.domain.dto.response.UserResponse
-import org.acme.domain.exception.EmailAlreadyExistsException
-import org.acme.domain.exception.UserNotFoundException
-import org.acme.domain.exception.UsernameAlreadyExistsException
+import org.acme.domain.exception.*
 import org.acme.infra.repository.UserRepository
 import org.acme.infra.security.BCryptHashProvider
 import org.acme.utils.ResponseMessages.GENERIC_MESSAGE
 import org.acme.utils.ResponseMessages.USER_CREATED
 import org.acme.utils.ResponseMessages.USER_UPDATED
+import org.acme.utils.ValidationMessages.CPF_ALREADY_EXISTS
+import org.acme.utils.ValidationMessages.CPF_MUST_NOT_BE_BLANK
 
 @ApplicationScoped
 class UserService(
@@ -32,6 +32,18 @@ class UserService(
 
     fun register(newUser: CreateUserRequest): UserResponse {
         validateUsernameAndEmail(newUser.username, newUser.email)
+
+        if (newUser.password.isNullOrEmpty()) {
+            throw EmptyPasswordException()
+        }
+
+        if (newUser.cpf.isNullOrEmpty()) {
+            throw GenericException(CPF_MUST_NOT_BE_BLANK)
+        }
+
+        if (repository.existsCpf(newUser.cpf)) {
+            throw GenericException(CPF_ALREADY_EXISTS)
+        }
 
         val hashedPassword = hashProvider.hash(newUser.password)
         val user = newUser.toEntity().apply { password = hashedPassword }

@@ -1,5 +1,6 @@
 package org.acme.domain.model
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import io.quarkus.runtime.annotations.RegisterForReflection
 import jakarta.persistence.*
 import jakarta.validation.constraints.Email
@@ -29,6 +30,7 @@ open class User(
         open var email: String = "",
 
         @field:NotBlank(message = PASSWORD_MUST_BE_NOT_BLANK)
+        @JsonIgnore
         open var password: String = "",
 
         @field:Size(min = 0, max = 255)
