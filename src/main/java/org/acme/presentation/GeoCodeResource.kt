@@ -15,11 +15,9 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/v1/address")
-class GeoCodeResource {
-
-    @Inject
-    lateinit var geoCodeService: GeoCodeService
-
+class GeoCodeResource @Inject constructor(
+    private val geoCodeService: GeoCodeService
+) {
     @POST
     fun searchAddress(request: GetAddressRequest): Response {
         val nominatimResponse = geoCodeService.searchAddress(request.address)

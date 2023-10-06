@@ -11,7 +11,7 @@ import org.acme.domain.model.User
 class UserRepository : PanacheRepository<User> {
     fun findByName(username: String): User? {
         return try {
-            find("username", username).firstResult<User?>()
+            find("username", username).firstResult()
         } catch (e: Exception) {
             Log.error("exception", e)
             null
@@ -20,7 +20,7 @@ class UserRepository : PanacheRepository<User> {
 
     fun findByEmail(email: String?): User? {
         return try {
-            find("email", email).firstResult<User?>()
+            find("email", email).firstResult()
         } catch (e: Exception) {
             Log.error("exception", e)
             null

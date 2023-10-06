@@ -9,7 +9,7 @@ import org.acme.domain.model.GeoCode
 @RegisterForReflection
 data class GeoCodeResponse(
     @JsonProperty("result")
-    val result: GeoCode?,
+    val result: List<GeoCode>?,
 
     @JsonProperty("message")
     val message: String?,
@@ -19,7 +19,7 @@ data class GeoCodeResponse(
 ) {
     companion object {
         @JvmStatic
-        fun build(geoCode: GeoCode, message: String?, status: Boolean): GeoCodeResponse = GeoCodeResponse(
+        fun build(geoCode: List<GeoCode>, message: String?, status: Boolean): GeoCodeResponse = GeoCodeResponse(
             result = geoCode,
             message = message,
             status = status

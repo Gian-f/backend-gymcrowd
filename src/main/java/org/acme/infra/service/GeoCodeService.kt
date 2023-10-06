@@ -7,22 +7,19 @@ import org.acme.utils.ResponseMessages.GENERIC_MESSAGE
 import org.eclipse.microprofile.rest.client.inject.RestClient
 
 @ApplicationScoped
-class GeoCodeService {
-
-    @Inject
-    @RestClient
-    lateinit var nominatimClient: NominatimService
-
+class GeoCodeService @Inject constructor(
+    @RestClient val nominatimClient: NominatimService
+) {
     fun searchAddress(address: String): GeoCodeResponse {
-        try {
+        return try {
             val nominatimResponse = nominatimClient.search(address)
-            return GeoCodeResponse(
-                result = nominatimResponse[0],
+            GeoCodeResponse(
+                result = nominatimResponse,
                 message = GENERIC_MESSAGE,
                 status = true
             )
         } catch (e: Exception) {
-            return GeoCodeResponse(
+            GeoCodeResponse(
                 result = null,
                 message = "Error: ${e.message}",
                 status = false

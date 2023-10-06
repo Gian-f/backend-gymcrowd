@@ -8,6 +8,7 @@ import org.acme.domain.exception.UserNotFoundException
 import org.acme.infra.repository.UserRepository
 import org.acme.infra.security.BCryptHashProvider
 import org.acme.infra.security.JwtTokenProvider
+import org.acme.utils.Patterns.EMAIL
 import org.acme.utils.ResponseMessages.LOGIN_OK
 import org.acme.utils.ValidationMessages.INVALID_CREDENTIALS
 
@@ -18,16 +19,19 @@ class AuthService(
     private val hashProvider: BCryptHashProvider
 ) {
     fun login(userLoginRequest: UserLoginRequest): AuthResponse {
+        val isEmail = isEmailValid(userLoginRequest.login)
         val user = when {
-            userLoginRequest.login.contains('@') -> repository.findByEmail(userLoginRequest.login)
+            isEmail -> repository.findByEmail(userLoginRequest.login)
             else -> repository.findByName(userLoginRequest.login)
         } ?: throw UserNotFoundException()
 
-        if (!hashProvider.verify(userLoginRequest.password, user.password)) {
-            throw InvalidCredentialsException(INVALID_CREDENTIALS)
-        }
+        requireNotNull(hashProvider.verify(userLoginRequest.password, user.password)) { INVALID_CREDENTIALS }
 
         val token = tokenProvider.create(user.username)
         return AuthResponse.build(token, LOGIN_OK, true)
+    }
+
+    private fun isEmailValid(email: String): Boolean {
+        return email.matches(EMAIL.toRegex())
     }
 }
