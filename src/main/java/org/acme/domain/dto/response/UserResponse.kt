@@ -10,7 +10,7 @@ import org.acme.domain.model.User
 data class UserResponse(
 
     @JsonProperty("result")
-    val user: User?,
+    val result: User?,
 
     @JsonProperty("message")
     val message: String,
@@ -21,7 +21,7 @@ data class UserResponse(
     companion object {
         @JvmStatic
         fun build(user: User, message: String, status: Boolean): UserResponse = UserResponse(
-            user = user,
+            result = user,
             message = message,
             status = status
         )

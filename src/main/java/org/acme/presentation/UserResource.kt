@@ -1,5 +1,6 @@
 package org.acme.presentation
 
+import jakarta.annotation.security.PermitAll
 import jakarta.transaction.Transactional
 import jakarta.validation.Valid
 import jakarta.ws.rs.*
@@ -22,24 +23,36 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag
 @Path("/v1/users")
 
 class UserResource(
-        private val loginService: UserService
+    private val loginService: UserService
 ) {
 
     @Operation(summary = "Método para listar usuários")
-    @APIResponse(responseCode = "200", content = [
-        Content(mediaType = APPLICATION_JSON,
-                schema = Schema(implementation = UserResponse::class,
-                        type = SchemaType.ARRAY))])
+    @APIResponse(
+        responseCode = "200", content = [
+            Content(
+                mediaType = APPLICATION_JSON,
+                schema = Schema(
+                    implementation = UserResponse::class,
+                    type = SchemaType.ARRAY
+                )
+            )]
+    )
     @GET
-    fun list(): List<UserResponse> {
+     fun list(): List<UserResponse> {
         return loginService.findAll()
     }
 
     @Operation(summary = "Método para buscar usuário por id")
-    @APIResponse(responseCode = "200", content = [
-        Content(mediaType = APPLICATION_JSON,
-                schema = Schema(implementation = UserResponse::class,
-                        type = SchemaType.OBJECT))])
+    @APIResponse(
+        responseCode = "200", content = [
+            Content(
+                mediaType = APPLICATION_JSON,
+                schema = Schema(
+                    implementation = UserResponse::class,
+                    type = SchemaType.OBJECT
+                )
+            )]
+    )
     @GET
     @Path("{id}")
     operator fun get(@PathParam("id") id: Long): UserResponse {
@@ -47,22 +60,35 @@ class UserResource(
     }
 
     @Operation(summary = "Método para adicionar usuário")
-    @APIResponse(responseCode = "201", content = [
-        Content(mediaType = APPLICATION_JSON,
-                schema = Schema(implementation = UserResponse::class,
-                        type = SchemaType.OBJECT))])
+    @APIResponse(
+        responseCode = "201", content = [
+            Content(
+                mediaType = APPLICATION_JSON,
+                schema = Schema(
+                    implementation = UserResponse::class,
+                    type = SchemaType.OBJECT
+                )
+            )]
+    )
     @Transactional
     @POST
+    @PermitAll
     fun create(request: @Valid CreateUserRequest): Response {
         val user: UserResponse = loginService.register(request)
         return Response.status(Response.Status.CREATED).entity(user).build()
     }
 
     @Operation(summary = "Método para atualizar usuário")
-    @APIResponse(responseCode = "200", content = [
-        Content(mediaType = APPLICATION_JSON,
-                schema = Schema(implementation = UserResponse::class,
-                        type = SchemaType.OBJECT))])
+    @APIResponse(
+        responseCode = "200", content = [
+            Content(
+                mediaType = APPLICATION_JSON,
+                schema = Schema(
+                    implementation = UserResponse::class,
+                    type = SchemaType.OBJECT
+                )
+            )]
+    )
     @Transactional
     @PUT
     @Path("{id}")
