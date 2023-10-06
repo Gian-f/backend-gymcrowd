@@ -23,15 +23,13 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag
 @Path("/v1/auth")
 
 class AuthResource(
-        private val authService: AuthService
+    private val authService: AuthService
 ) {
     @POST
     @Path("login")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
     @PermitAll
     fun login(
-            @Valid @NotNull(message = ValidationMessages.REQUEST_BODY_MUST_NOT_BE_NULL)
-            userLoginRequest: UserLoginRequest
+        @Valid @NotNull(message = ValidationMessages.REQUEST_BODY_MUST_NOT_BE_NULL)
+        userLoginRequest: UserLoginRequest
     ): Response = ok(authService.login(userLoginRequest)).status(OK).build()
 }
