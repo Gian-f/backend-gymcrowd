@@ -16,7 +16,8 @@ data class GeoCodeResponse(
 
     @JsonProperty("status")
     val status: Boolean,
-) {
+)
+{
     companion object {
         @JvmStatic
         fun build(geoCode: List<GeoCode>, message: String?, status: Boolean): GeoCodeResponse = GeoCodeResponse(

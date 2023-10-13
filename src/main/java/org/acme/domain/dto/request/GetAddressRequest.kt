@@ -11,4 +11,4 @@ data class GetAddressRequest(
     @NotNull
     @JsonProperty("address")
     val address: String,
-    )
+)

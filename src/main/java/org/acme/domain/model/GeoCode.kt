@@ -9,6 +9,6 @@ open class GeoCode(
     open val latitude: String = "",
     @JsonProperty("lon")
     open val longitude: String = "",
-    @JsonProperty("display_name")
-    open val displayName: String = "",
+    @JsonProperty("address")
+    open val address: NominatimAddress = NominatimAddress(),
 )

@@ -2,6 +2,8 @@ package org.acme.infra.service
 
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
+import jakarta.ws.rs.core.MediaType
+import jakarta.ws.rs.core.Response
 import org.acme.domain.dto.response.GeoCodeResponse
 import org.acme.utils.ResponseMessages.GENERIC_MESSAGE
 import org.eclipse.microprofile.rest.client.inject.RestClient
@@ -10,20 +12,22 @@ import org.eclipse.microprofile.rest.client.inject.RestClient
 class GeoCodeService @Inject constructor(
     @RestClient val nominatimClient: NominatimService
 ) {
-    fun searchAddress(address: String): GeoCodeResponse {
+    fun searchAddress(address: String): Response {
         return try {
             val nominatimResponse = nominatimClient.search(address)
-            GeoCodeResponse(
-                result = nominatimResponse,
-                message = GENERIC_MESSAGE,
-                status = true
-            )
+            Response
+                .ok(GeoCodeResponse(
+                    result = nominatimResponse,
+                    message = GENERIC_MESSAGE,
+                    status = true
+                ))
+                .type(MediaType.APPLICATION_JSON)
+                .build()
         } catch (e: Exception) {
-            GeoCodeResponse(
-                result = null,
-                message = "Error: ${e.message}",
-                status = false
-            )
+            Response.status(Response.Status.SERVICE_UNAVAILABLE)
+                .entity("Algo deu errado ao buscar os endereços.")
+                .type(MediaType.APPLICATION_JSON)
+                .build()
         }
     }
 }

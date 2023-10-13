@@ -31,19 +31,13 @@ class UserService(
     }
 
     fun register(newUser: CreateUserRequest): UserResponse {
-        validateUsernameAndEmail(newUser.username, newUser.email)
+        validateFields(newUser.username, newUser.email)
 
-        if (newUser.password.isNullOrEmpty()) {
-            throw EmptyPasswordException()
-        }
+        if (newUser.password.isNullOrEmpty()) throw EmptyPasswordException()
 
-        if (newUser.cpf.isNullOrEmpty()) {
-            throw GenericException(CPF_MUST_NOT_BE_BLANK)
-        }
+        if (newUser.cpf.isNullOrEmpty()) throw GenericException(CPF_MUST_NOT_BE_BLANK)
 
-        if (repository.existsCpf(newUser.cpf)) {
-            throw GenericException(CPF_ALREADY_EXISTS)
-        }
+        if (repository.existsCpf(newUser.cpf)) throw GenericException(CPF_ALREADY_EXISTS)
 
         val hashedPassword = hashProvider.hash(newUser.password)
         val user = newUser.toEntity().apply { password = hashedPassword }
@@ -55,7 +49,7 @@ class UserService(
     fun update(loggedInUserId: Long, updateRequest: UpdateUserRequest): UserResponse {
         val user = repository.findById(loggedInUserId) ?: throw UserNotFoundException()
 
-        validateUsernameAndEmail(updateRequest.username, updateRequest.email)
+        validateFields(updateRequest.username, updateRequest.email)
 
         if (!updateRequest.password.isNullOrEmpty()) {
             user.password = hashProvider.hash(updateRequest.password)
@@ -67,11 +61,12 @@ class UserService(
         return UserResponse.build(user, USER_UPDATED, true)
     }
 
-    private fun validateUsernameAndEmail(username: String?, email: String?) {
-        if (!username.isNullOrEmpty() && repository.existsUsername(username)) {
+    private fun validateFields(username: String?, email: String?) {
+        requireNotNull(!username.isNullOrEmpty() && repository.existsUsername(username)) {
             throw UsernameAlreadyExistsException()
         }
-        if (!email.isNullOrEmpty() && repository.existsEmail(email)) {
+
+        requireNotNull(!email.isNullOrEmpty() && repository.existsEmail(email)) {
             throw EmailAlreadyExistsException()
         }
     }
