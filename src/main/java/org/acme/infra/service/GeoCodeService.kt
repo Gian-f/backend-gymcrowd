@@ -12,22 +12,20 @@ import org.eclipse.microprofile.rest.client.inject.RestClient
 class GeoCodeService @Inject constructor(
     @RestClient val nominatimClient: NominatimService
 ) {
-    fun searchAddress(address: String): Response {
+    fun searchAddress(address: String): GeoCodeResponse {
         return try {
             val nominatimResponse = nominatimClient.search(address)
-            Response
-                .ok(GeoCodeResponse(
-                    result = nominatimResponse,
-                    message = GENERIC_MESSAGE,
-                    status = true
-                ))
-                .type(MediaType.APPLICATION_JSON)
-                .build()
+            GeoCodeResponse(
+                result = nominatimResponse,
+                message = GENERIC_MESSAGE,
+                status = true
+            )
         } catch (e: Exception) {
-            Response.status(Response.Status.SERVICE_UNAVAILABLE)
-                .entity("Algo deu errado ao buscar os endereços.")
-                .type(MediaType.APPLICATION_JSON)
-                .build()
+            GeoCodeResponse(
+                result = null,
+                message = "Error: ${e.message}",
+                status = false
+            )
         }
     }
 }
