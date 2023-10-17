@@ -62,11 +62,11 @@ class UserService(
     }
 
     private fun validateFields(username: String?, email: String?) {
-        requireNotNull(!username.isNullOrEmpty() && repository.existsUsername(username)) {
+        if(!username.isNullOrEmpty() && repository.existsUsername(username)) {
             throw UsernameAlreadyExistsException()
         }
 
-        requireNotNull(!email.isNullOrEmpty() && repository.existsEmail(email)) {
+        if(!email.isNullOrEmpty() && repository.existsEmail(email)) {
             throw EmailAlreadyExistsException()
         }
     }

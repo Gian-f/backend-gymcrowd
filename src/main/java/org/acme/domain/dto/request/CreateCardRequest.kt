@@ -29,7 +29,7 @@ data class CreateCardRequest(
     @NotNull
 //    @field:NotBlank(message = ValidationMessages.CARD_DUE_MUST_BE_NOT_BLANK)
     @JsonProperty("dueDate")
-    val dueDate: Date? = Date(),
+    val dueDate: String = "",
 
     ) {
     fun toEntity() = Card(

@@ -27,7 +27,7 @@ open class Card(
     open var flag: String = "",
 
     @Column
-    open var dueDate: Date? = Date(),
+    open var dueDate: String = "",
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
