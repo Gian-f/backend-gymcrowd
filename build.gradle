@@ -9,6 +9,11 @@ repositories {
     mavenLocal()
 }
 
+tasks.register('stage', Copy) {
+    from 'build/quarkus-app'
+    into 'build/stage'
+}
+
 dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation 'io.quarkus:quarkus-rest-client'
@@ -30,6 +35,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-resteasy-jackson'
     implementation 'io.quarkus:quarkus-arc'
     implementation 'io.quarkus:quarkus-flyway'
+    implementation("io.quarkus:quarkus-redis-cache")
     implementation 'at.favre.lib:bcrypt:0.9.0'
     implementation("org.jboss.logmanager:log4j2-jboss-logmanager")
     implementation("io.quarkus:quarkus-logging-json")
