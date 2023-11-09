@@ -24,7 +24,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag
 class GeoCodeResource @Inject constructor(
     private val geoCodeService: GeoCodeService
 ) {
-    @Operation(summary = "Método para pesquisar usuários")
+    @Operation(summary = "Método para pesquisar endereços")
     @APIResponse(
         responseCode = "200", content = [
             Content(

@@ -37,7 +37,7 @@ class GeoCodeService @Inject constructor(
 
     private fun maybeFail() {
         val invocationNumber = counter.getAndIncrement()
-        if (invocationNumber % 4 > 1) {
+        if (invocationNumber % 10 > 1) {
             throw GenericException("O Serviço de endereço está fora do ar!")
         }
     }
