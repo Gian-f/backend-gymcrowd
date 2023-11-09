@@ -46,6 +46,7 @@ CREATE TABLE cards (
     cardNumber VARCHAR(255) NOT NULL,
     flag VARCHAR(255) NOT NULL,
     dueDate VARCHAR(50) NOT NULL,
+    status BOOLEAN NOT NULL,
     created_at TIMESTAMPTZ NOT NULL,
     modified_at TIMESTAMPTZ NOT NULL
 );

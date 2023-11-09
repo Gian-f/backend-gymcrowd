@@ -50,4 +50,16 @@ class CardResource @Inject constructor(
         val list = service.getAllCards()
         return Response.ok(list).build()
     }
+
+    @Transactional
+    @DELETE
+    @Path("/{id}")
+    fun delete(@PathParam("id") id: Long): Response {
+        val response = service.softDeleteCard(id)
+        return if (response.status) {
+            Response.ok(response).build()
+        } else {
+            Response.status(Response.Status.BAD_REQUEST).entity(response).build()
+        }
+    }
 }

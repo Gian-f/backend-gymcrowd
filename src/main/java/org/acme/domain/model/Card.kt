@@ -29,6 +29,9 @@ open class Card(
     @Column
     open var dueDate: String = "",
 
+    @Column(name = "status")
+    open var status: Boolean = true,
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     open var createdAt: Date? = Date(),

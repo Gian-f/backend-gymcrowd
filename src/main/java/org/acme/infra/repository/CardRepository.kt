@@ -22,7 +22,7 @@ class CardRepository : PanacheRepository<Card> {
 
     fun findAllCards(): List<Card> {
         return try {
-            listAll()
+            find("status = true").list()
         } catch (e: Exception) {
             Log.error("exception", e)
             emptyList()
