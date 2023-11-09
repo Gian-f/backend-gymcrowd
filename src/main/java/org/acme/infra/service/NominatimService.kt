@@ -16,6 +16,6 @@ interface NominatimService {
         @QueryParam("q") query: String,
         @QueryParam("format") format: String = "jsonv2",
         @QueryParam("addressdetails") addressDetails: Int = 1,
-        @QueryParam("limit") limit: Int = 1,
+        @QueryParam("limit") limit: Int = 1
     ): List<GeoCode>
 }

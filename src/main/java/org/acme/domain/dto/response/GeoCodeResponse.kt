@@ -9,7 +9,7 @@ import org.acme.domain.model.GeoCode
 @RegisterForReflection
 data class GeoCodeResponse(
     @JsonProperty("result")
-    val result: List<GeoCode>?,
+    val result:Any?,
 
     @JsonProperty("message")
     val message: String?,

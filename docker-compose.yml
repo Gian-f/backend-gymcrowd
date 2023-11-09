@@ -16,6 +16,15 @@ services:
     networks:
       - desenvolvimento-network
 
+  redis:
+    image: redis:7.2.1-alpine
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - desenvolvimento-network
+
 networks:
   desenvolvimento-network:
     name: desenvolvimento-network

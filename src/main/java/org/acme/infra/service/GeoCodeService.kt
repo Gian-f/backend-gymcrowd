@@ -1,5 +1,6 @@
 package org.acme.infra.service
 
+import io.quarkus.cache.CacheResult
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import org.acme.domain.dto.response.GeoCodeResponse
@@ -10,6 +11,7 @@ import org.eclipse.microprofile.rest.client.inject.RestClient
 class GeoCodeService @Inject constructor(
     @RestClient val nominatimClient: NominatimService
 ) {
+    @CacheResult(cacheName = "address-cache")
     fun searchAddress(address: String): GeoCodeResponse {
         return try {
             val nominatimResponse = nominatimClient.search(address)

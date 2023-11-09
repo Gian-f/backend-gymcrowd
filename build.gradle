@@ -35,7 +35,7 @@ dependencies {
     implementation 'io.quarkus:quarkus-resteasy-jackson'
     implementation 'io.quarkus:quarkus-arc'
     implementation 'io.quarkus:quarkus-flyway'
-    implementation("io.quarkus:quarkus-redis-cache")
+    implementation("io.quarkus:quarkus-cache")
     implementation 'at.favre.lib:bcrypt:0.9.0'
     implementation("org.jboss.logmanager:log4j2-jboss-logmanager")
     implementation("io.quarkus:quarkus-logging-json")
