@@ -32,7 +32,7 @@ class HireResource(
     )
     @Transactional
     @POST
-    fun registerCard(request: HireRequest): Response {
+    fun register(request: HireRequest): Response {
         val hire = hireService.create(request)
         return Response.status(Response.Status.OK).entity(hire).build()
     }
