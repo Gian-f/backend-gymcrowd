@@ -1,5 +1,7 @@
 package org.acme.infra.service
 
+import io.quarkus.cache.CacheInvalidate
+import io.quarkus.cache.CacheResult
 import jakarta.enterprise.context.ApplicationScoped
 import org.acme.domain.dto.request.CreateUserRequest
 import org.acme.domain.dto.request.UpdateUserRequest
@@ -18,11 +20,13 @@ class UserService(
     private val repository: UserRepository,
     private val hashProvider: BCryptHashProvider
 ) {
+    @CacheResult(cacheName = "userCache")
     fun findById(id: Long): UserResponse {
         val user = repository.findById(id) ?: throw UserNotFoundException()
         return UserResponse.build(user, GENERIC_MESSAGE, true)
     }
 
+    @CacheResult(cacheName = "userCache")
     fun findAll(): List<UserResponse> {
         val users = repository.findAllByStatus()
         return users.map { list ->
@@ -57,6 +61,7 @@ class UserService(
 
         updateRequest.applyChangesTo(user)
         repository.persist(user)
+
 
         return UserResponse.build(user, USER_UPDATED, true)
     }

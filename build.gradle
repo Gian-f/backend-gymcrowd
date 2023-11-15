@@ -35,10 +35,10 @@ dependencies {
     implementation 'io.quarkus:quarkus-resteasy-jackson'
     implementation 'io.quarkus:quarkus-arc'
     implementation 'io.quarkus:quarkus-flyway'
-    implementation("io.quarkus:quarkus-cache")
+    implementation('io.quarkus:quarkus-cache:2.16.4.Final')
     implementation 'at.favre.lib:bcrypt:0.9.0'
-    implementation("org.jboss.logmanager:log4j2-jboss-logmanager")
-    implementation("io.quarkus:quarkus-logging-json")
+    implementation('org.jboss.logmanager:log4j2-jboss-logmanager:1.1.1.Final')
+    implementation('io.quarkus:quarkus-logging-json:2.16.4.Final')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
     testImplementation 'io.quarkus:quarkus-junit5'
     testImplementation 'io.rest-assured:rest-assured'
