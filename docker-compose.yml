@@ -16,6 +16,17 @@ services:
     networks:
       - desenvolvimento-network
 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - desenvolvimento-network
+    depends_on:
+      - postgres
+
 networks:
   desenvolvimento-network:
     name: desenvolvimento-network
