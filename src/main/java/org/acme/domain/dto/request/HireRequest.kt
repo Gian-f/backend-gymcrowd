@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonRootName
 import io.quarkus.runtime.annotations.RegisterForReflection
 import jakarta.validation.constraints.NotBlank
 import jakarta.validation.constraints.NotNull
-import org.acme.domain.model.Card
 import org.acme.domain.model.Hire
-import java.util.*
 
 @JsonRootName("cards")
 @RegisterForReflection
@@ -33,11 +31,11 @@ data class HireRequest(
 
     @NotNull
     @JsonProperty("tipo_frequencia")
-    val tipoFrequencia: List<String> = emptyList(),
+    val tipoFrequencia: String = "",
 
     @NotNull
     @JsonProperty("quantidade_academias")
-    val quantidadeAcademias: List<Int> = emptyList(),
+    val quantidadeAcademias: Int = 0,
 
     ) {
     fun toEntity() = Hire(

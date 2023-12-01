@@ -12,4 +12,5 @@ object ValidationMessages {
     const val CPF_MUST_NOT_BE_BLANK = "O campo CPF não pode ser nulo ou vazio"
     const val CPF_ALREADY_EXISTS = "O campo CPF já existe!"
     const val INVALID_CREDENTIALS = "Credenciais estão inválidas!"
+    const val REQUIRED = "Este campo é obrigatório!"
 }

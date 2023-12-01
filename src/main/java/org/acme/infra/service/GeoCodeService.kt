@@ -18,7 +18,7 @@ class GeoCodeService @Inject constructor(
     @CircuitBreaker(requestVolumeThreshold = 10)
     @CacheResult(cacheName = "address-cache")
     fun searchAddress(address: String): GeoCodeResponse {
-        maybeFail()
+//        maybeFail()
         return try {
             val nominatimResponse = nominatimClient.search(address)
             GeoCodeResponse(
