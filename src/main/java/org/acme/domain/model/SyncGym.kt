@@ -16,13 +16,25 @@ open class SyncGym(
     open var id: Long = 0,
 
     @field:NotBlank(message = ValidationMessages.REQUIRED)
-    open var registeredName: String = "",
+    @Column(name = "nome_registrado")
+    open var nomeRegistrado: String = "",
 
     @field:NotBlank(message = ValidationMessages.REQUIRED)
-    open var registeredNumber: String = "",
+    @Column(name = "numero_registrado")
+    open var numeroRegistrado: String = "",
 
     @field:NotBlank(message = ValidationMessages.REQUIRED)
-    open var gymSync: String = "",
+    @Column(name = "academia_sincronizar")
+    open var academiaSincronizar: String = "",
+
+    @Column(name = "forma_pagamento")
+    open var formaPagamento: String = "Cartão de crédito",
+
+    @Column(name = "assinatura")
+    open var assinatura: String = "Plano Premium",
+
+    @Column(name = "frequencia_usuario")
+    open var frequenciaUsuario: String = "0%",
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

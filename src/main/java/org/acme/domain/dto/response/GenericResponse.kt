@@ -6,7 +6,7 @@ import io.quarkus.runtime.annotations.RegisterForReflection
 
 @JsonRootName("generic")
 @RegisterForReflection
-class GenericResponse(
+open class GenericResponse(
     @JsonProperty("result")
     val result: Any?,
 

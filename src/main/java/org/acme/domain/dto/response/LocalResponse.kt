@@ -3,13 +3,16 @@ package org.acme.domain.dto.response
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonRootName
 import io.quarkus.runtime.annotations.RegisterForReflection
-import org.acme.domain.model.GeoCode
+import org.acme.domain.model.Location
 
-@JsonRootName("address")
+@JsonRootName("local")
 @RegisterForReflection
-data class GeoCodeResponse(
+open class LocalResponse(
     @JsonProperty("result")
-    val result: List<GeoCode>?,
+    val result: Any?,
+
+    @JsonProperty("local")
+    val local: Location,
 
     @JsonProperty("message")
     val message: String?,
@@ -19,8 +22,9 @@ data class GeoCodeResponse(
 ) {
     companion object {
         @JvmStatic
-        fun build(geoCode: List<GeoCode>, message: String?, status: Boolean): GeoCodeResponse = GeoCodeResponse(
-            result = geoCode,
+        fun build(result: Any, message: String?, local: Location, status: Boolean): LocalResponse = LocalResponse(
+            result = result,
+            local = local,
             message = message,
             status = status
         )

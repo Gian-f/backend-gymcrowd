@@ -23,8 +23,8 @@ data class SyncGymRequest(
 
     ) {
     fun toEntity() = SyncGym(
-        registeredName = nomeRegistrado,
-        registeredNumber = numeroRegistrado,
-        gymSync = academiaSincronizar
+        nomeRegistrado = nomeRegistrado,
+        numeroRegistrado = numeroRegistrado,
+        academiaSincronizar = academiaSincronizar
     )
 }

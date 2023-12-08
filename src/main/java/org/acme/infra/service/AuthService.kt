@@ -3,7 +3,6 @@ package org.acme.infra.service
 import jakarta.enterprise.context.ApplicationScoped
 import org.acme.domain.dto.request.UserLoginRequest
 import org.acme.domain.dto.response.AuthResponse
-import org.acme.domain.exception.InvalidCredentialsException
 import org.acme.domain.exception.UserNotFoundException
 import org.acme.infra.repository.UserRepository
 import org.acme.infra.security.BCryptHashProvider
@@ -28,7 +27,7 @@ class AuthService(
         requireNotNull(hashProvider.verify(userLoginRequest.password, user.password)) { INVALID_CREDENTIALS }
 
         val token = tokenProvider.create(user.username)
-        return AuthResponse.build(token, LOGIN_OK, true)
+        return AuthResponse.build(token, user, LOGIN_OK, true)
     }
 
     private fun isEmailValid(email: String): Boolean {

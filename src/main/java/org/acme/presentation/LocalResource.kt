@@ -2,10 +2,7 @@ package org.acme.presentation
 
 import jakarta.inject.Inject
 import jakarta.transaction.Transactional
-import jakarta.ws.rs.Consumes
-import jakarta.ws.rs.POST
-import jakarta.ws.rs.Path
-import jakarta.ws.rs.Produces
+import jakarta.ws.rs.*
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import org.acme.domain.dto.request.CreateLocalRequest
@@ -22,7 +19,7 @@ import org.eclipse.microprofile.openapi.annotations.tags.Tag
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Path("/v1/local")
-class LocalResource @Inject constructor(
+open class LocalResource @Inject constructor(
     private val service: LocalService
 ) {
 
@@ -36,8 +33,22 @@ class LocalResource @Inject constructor(
     )
     @Transactional
     @POST
-    fun register(request: CreateLocalRequest): Response {
+    open suspend fun register(request: CreateLocalRequest): Response {
         val registry = service.register(request)
         return Response.status(Response.Status.OK).entity(registry).build()
+    }
+
+    @Operation(summary = "Método para listar todos os locais")
+    @APIResponse(
+        responseCode = "200", content = [Content(
+            mediaType = MediaType.APPLICATION_JSON, schema = Schema(
+                implementation = GenericResponse::class, type = SchemaType.ARRAY
+            )
+        )]
+    )
+    @GET
+    fun listAll(): Response {
+        val list = service.fetchAll()
+        return Response.ok(list).build()
     }
 }
